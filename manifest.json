@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "List Products",
+    "description": "Lấy danh sách sản phẩm của thế giới di động.",
+    "version": "1.0",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "Logo-The-Gioi-Di-Dong-MWG.webp"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.thegioididong.com/*"
+            ],
+            "css": [
+                "css/style.css"
+            ],
+            "js": [
+                "js/content.js"
+            ]
+        }
+    ]
+}
