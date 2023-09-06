@@ -18,46 +18,48 @@ const box_list = document.querySelector('.list');
 function extractProductInfo() {
     const products = [];
     const productElements = document.querySelector('.listproduct')
-    const li = document.querySelectorAll('.listproduct>li.item')
+    const liItems = productElements.querySelectorAll('.listproduct > .item');
+    const owlStageOuter = productElements.querySelectorAll('.listproduct > .owl-stage-outer .owl-stage .item');
+
+    // Kết hợp kết quả từ cả hai truy vấn
+    const li = [...liItems, ...owlStageOuter];
     console.log(li);
-    const item = document.querySelectorAll("div.owl-item")
-    const item2 = document.querySelectorAll("div.owl-stage-outer.owl-stage")
-    console.log(item);
-    item.forEach((productElement) => {
+    li.forEach((productElement) => {
         const name = productElement.querySelector('h3')
         const price = productElement.querySelector('strong.price:not(.twoprice)')
         const desc = productElement.querySelector('.prods-group')
+        const desc2 = productElement.querySelector('.utility')
+        const desc3 = productElement.querySelector('.item-compare')
         const img = productElement.querySelector('img.thumb, img:not(.thumb)');
         const product = {
-            name: name,
-            price: price,
-            img: img,
-            desc: desc || ""
+            name: name || null,
+            price: price || null,
+            img: img || null,
+            desc: desc || desc2 || desc3 || " "
         };
-        if (li.length > 0) {
-            li.forEach((liElement) => {
-                // Sử dụng element <li> ở đây
-                const name = liElement.querySelector('h3')
-                const price = liElement.querySelector('strong.price:not(.twoprice)')
-                const desc = liElement.querySelector('.prods-group')
-                const img = liElement.querySelector('img.thumb, img:not(.thumb)');
-                const product = {
-                    name: name,
-                    price: price,
-                    img: img,
-                    desc: desc || ""
-                };
-                products.push(product);
-            });
-        }
-        else {
+        // if (li.length > 0) {
+        //     li.forEach((liElement) => {
+        //         // Sử dụng element <li> ở đây
+        //         const name = liElement.querySelector('h3')
+        //         const price = liElement.querySelector('strong.price:not(.twoprice)')
+        //         const desc = liElement.querySelector('.prods-group')
+        //         const img = liElement.querySelector('img.thumb, img:not(.thumb)');
+        //         const product = {
+        //             name: name || "",
+        //             price: price || "",
+        //             img: img,
+        //             desc: desc || ""
+        //         };
 
-            products.push(product)
-        }
+        //     });
+        // }
+        // else {
+
+        //     products.push(product)
+        // }
         // Tạo một đối tượng sản phẩm và thêm vào mảng products
-
+        products.push(product)
     });
-    console.log(products);
     // Trả về danh sách sản phẩm
     return products;
 }
@@ -79,14 +81,14 @@ productData.forEach((product, index) => {
 
     productElement.innerHTML = `
     <div class="product__image">
-        <img src="${product.img.currentSrc || product.img.dataset.src}" alt="${product.name.innerText}">
+        <img src="${product?.img?.currentSrc || product?.img?.dataset?.src}" alt="${product?.name?.innerText}">
     </div>
     <div class="product__info">
-        <div class="product__name">${product.name}</div>
-        <div class="product__price">${product.price.innerText}</div>
+        <div class="product__name">${product?.name?.innerText}</div>
+        <div class="product__price">${product?.price?.innerText}</div>
     </div>
     <div class="products__desc">
-    <p>${product.desc.innerText}</p>
+    <p>${product?.desc?.innerText}</p>
     </div>
     `;
     box_list.appendChild(productElement);

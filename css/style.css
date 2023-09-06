@@ -4,7 +4,6 @@
     right: 0;
     bottom: 10px;
     z-index: 9999;
-    background: #fff;
     padding: 10px;
 
 }
@@ -27,6 +26,7 @@
     overflow-x: scroll;
     display: none;
     box-shadow: 0 0 10px 0;
+    background-color: #fff;
 }
 
 .active {
